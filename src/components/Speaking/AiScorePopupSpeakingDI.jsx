@@ -585,7 +585,7 @@ const AiScorePopupSpeakingDI = ({
                   </AiScoreSmallCardHeader>
                   <ContentWrapper1>
                     <CircularScoreProgress
-                      score={score}
+                      score={Math.round(score / 3)}
                       totalScore={totalScore}
                       progressColorFilled={scoreCard.progressColorFilled}
                       scoreColor={scoreCard.scoreColor}
@@ -788,7 +788,7 @@ const AiScorePopupSpeakingDI = ({
                   </AiScoreSmallCardHeader>
                   <ContentWrapper1>
                     <CircularScoreProgress
-                      score={score}
+                      score={Math.round(score / 3)}
                       totalScore={totalScore}
                       progressColorFilled={scoreCard.progressColorFilled}
                       scoreColor={scoreCard.scoreColor}

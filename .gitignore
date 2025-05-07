@@ -75,3 +75,6 @@ temp/
 # Ignore Mock or Temporary Components
 src/components/MockTest/indexTEMP.jsx
 
+
+ngrok.exe
+
