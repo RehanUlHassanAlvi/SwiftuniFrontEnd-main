@@ -1,0 +1,77 @@
+# 💡 GitHub Documentation: https://help.github.com/articles/ignoring-files/
+
+# Ignore IDE Settings (VS Code, JetBrains, etc.)
+.vscode/
+.idea/
+*.iml
+/.vscode
+
+# Ignore Node.js Dependencies
+node_modules/
+.pnp/
+.pnp.js
+package-lock.json
+yarn.lock
+
+# Ignore Build & Production Files
+build/
+dist/
+out/
+.cache/
+
+# Ignore Testing & Coverage Reports
+coverage/
+.nyc_output/
+
+# Ignore Miscellaneous System Files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*.swn
+*.swo
+*.sublime-project
+*.sublime-workspace
+
+# Ignore Environment & Secrets
+# .env
+# .env.local
+# .env.development.local
+# .env.test.local
+# .env.production.local
+# .envrc
+
+# Ignore Debug & Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+logs/
+*.log
+*.log.*
+
+# Ignore ESLint & Prettier Settings
+.eslintcache
+eslint.config.mjs
+.eslintrc
+.eslintrc.json
+.eslintrc.js
+.eslintrc.yml
+.prettierignore
+.prettierrc
+.prettierrc.json
+.prettierrc.js
+.prettierrc.yml
+
+# Ignore Temporary & Backup Files
+tmp/
+temp/
+*.bak
+*.tmp
+*.backup
+*.old
+*.orig
+
+# Ignore Mock or Temporary Components
+src/components/MockTest/indexTEMP.jsx
+

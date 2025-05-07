@@ -1,0 +1,220 @@
+import React, { useState, useEffect } from "react";
+const synth = window.speechSynthesis;
+
+import {
+  QuestionCardMainDiv,
+  QuestionCardContent,
+  QuestionCardText,
+  QuestionCardIconDiv,
+  SelectVoiceDiv,
+  MenuItemsVoice,
+  SpeakerIconDiv,
+} from "./styles";
+
+const QuestionCard = ({ textValue }) => {
+  const [isSpeaking, setIsSpeaking] = useState(false);
+  const [utterance] = useState(new SpeechSynthesisUtterance());
+  const [hoveredWordIndex, setHoveredWordIndex] = useState(null);
+  const [voices, setVoices] = useState([]);
+  const [selectedVoiceIndex, setSelectedVoiceIndex] = useState(0);
+
+  function addVoice(voice, region, regionVoices) {
+    let name = voice.name.split(" - ")[0];
+    let simplifiedName = "";
+
+    switch (region) {
+      case "US":
+        simplifiedName = `${name.split(" ")[1]} (${region})`;
+        break;
+      case "UK":
+        simplifiedName = `${name.split(" ")[3]} (${region})`;
+        break;
+      case "IN":
+        simplifiedName = `Female (${region})`;
+        break;
+      default:
+        simplifiedName = `${name} (${region})`;
+    }
+
+    regionVoices[region].push({
+      name: simplifiedName,
+      voice: voice,
+    });
+    console.log(`Added: ${simplifiedName}`);
+  }
+
+  const populateVoices = () => {
+    let availableVoices = synth.getVoices();
+    let regionVoices = {
+      US: [],
+      UK: [],
+      IN: [],
+    };
+
+    availableVoices.forEach((voice) => {
+      let region = voice.lang.slice(-2);
+      if (voice.lang.includes("en-GB")) region = "UK";
+      if (voice.lang.includes("hi-IN")) region = "IN";
+
+      if (
+        regionVoices[region] !== undefined &&
+        regionVoices[region].length < 3
+      ) {
+        addVoice(voice, region, regionVoices);
+      }
+    });
+
+    const filteredVoices = Object.values(regionVoices).flat();
+    setVoices(filteredVoices);
+    console.log("Filtered Voices: ", filteredVoices);
+
+    const davidVoiceIndex = filteredVoices.findIndex((v) =>
+      v.name.includes("David (US)")
+    );
+    const defaultVoiceIndex = davidVoiceIndex !== -1 ? davidVoiceIndex : 0;
+
+    if (filteredVoices.length > 0) {
+      utterance.voice = filteredVoices[defaultVoiceIndex].voice;
+      setSelectedVoiceIndex(defaultVoiceIndex);
+    }
+  };
+
+  // useEffect(() => {
+  //   if (synth.getVoices().length === 0) {
+  //     synth.onvoiceschanged = populateVoices;
+  //   } else {
+  //     populateVoices();
+  //   }
+
+  //   return () => {
+  //     synth.onvoiceschanged = null;
+  //   };
+  // }, []);
+
+  useEffect(() => {
+    if (synth.getVoices().length > 0) {
+      populateVoices();
+    } else {
+      synth.onvoiceschanged = populateVoices;
+    }
+
+    return () => {
+      synth.onvoiceschanged = null;
+    };
+  }, []);
+
+  const handleVoiceChange = (event) => {
+    const index = event.target.value;
+    setSelectedVoiceIndex(index);
+    utterance.voice = voices[index].voice;
+  };
+
+  const handleWordClick = (word) => {
+    if (isSpeaking) synth.cancel();
+    utterance.text = word;
+    synth.speak(utterance);
+    setIsSpeaking(true);
+  };
+
+  // const toggleSpeech = () => {
+  //   if (isSpeaking) {
+  //     synth.cancel();
+  //     setIsSpeaking(false);
+  //   } else {
+  //     utterance.text = textValue;
+  //     utterance.onstart = () => {
+  //       setIsSpeaking(true);
+  //     };
+  //     utterance.onend = () => {
+  //       setIsSpeaking(false);
+  //     };
+  //     synth.speak(utterance);
+  //   }
+  // };
+
+  const toggleSpeech = () => {
+    if (isSpeaking) {
+      synth.cancel();
+      setIsSpeaking(false);
+    } else {
+      utterance.text = textValue;
+      synth.speak(utterance);
+      setIsSpeaking(true);
+    }
+  };
+
+  useEffect(() => {
+    utterance.onend = () => {
+      setIsSpeaking(false);
+    };
+  }, [utterance]);
+
+  const handleMouseEnter = (index) => {
+    setHoveredWordIndex(index);
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredWordIndex(null);
+  };
+
+  const renderParagraphs = () => {
+    return textValue.split("\n").map((paragraph, pIndex) => (
+      <QuestionCardText key={pIndex} variant="body1">
+        {paragraph.split(" ").map((word, wIndex) => {
+          const indexKey = `${pIndex}-${wIndex}`;
+          return (
+            <span
+              key={indexKey}
+              onClick={() => handleWordClick(word)}
+              onMouseEnter={() => handleMouseEnter(indexKey)}
+              onMouseLeave={handleMouseLeave}
+              style={{
+                color: indexKey === hoveredWordIndex ? "white" : "black",
+                backgroundColor:
+                  indexKey === hoveredWordIndex ? "#49D7F2" : "transparent",
+                cursor: "pointer",
+                padding: "0 3px",
+                borderRadius: "4px",
+              }}
+            >
+              {word + (wIndex < paragraph.split(" ").length - 1 ? " " : "")}
+            </span>
+          );
+        })}
+      </QuestionCardText>
+    ));
+  };
+
+  return (
+    <QuestionCardMainDiv>
+      <QuestionCardContent>{renderParagraphs()}</QuestionCardContent>
+
+      <QuestionCardIconDiv>
+        <SpeakerIconDiv clicked={isSpeaking} onClick={toggleSpeech}>
+          <svg
+            width="21"
+            height="16"
+            viewBox="0 0 21 16"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M12.6712 0C12.5357 0 12.398 0.0321429 12.2717 0.106473L4.13265 4.76116H0.367347C0.165306 4.76116 0 4.9058 0 5.08259V10.8683C0 11.0451 0.165306 11.1897 0.367347 11.1897H4.13265L12.2717 15.8444C12.398 15.9167 12.538 15.9509 12.6712 15.9509C13.0546 15.9509 13.4082 15.6837 13.4082 15.306V0.644866C13.4082 0.267188 13.0546 0 12.6712 0ZM11.7551 13.8214L5.03724 9.97835L4.62398 9.7433H1.65306V6.20759H4.62398L5.03495 5.97254L11.7551 2.12946V13.8214ZM19.7449 7.25223H16.8061C16.6041 7.25223 16.4388 7.39687 16.4388 7.57366V8.37723C16.4388 8.55402 16.6041 8.69866 16.8061 8.69866H19.7449C19.9469 8.69866 20.1122 8.55402 20.1122 8.37723V7.57366C20.1122 7.39687 19.9469 7.25223 19.7449 7.25223ZM18.7829 12.5116L16.2505 11.2319C16.2089 11.2111 16.163 11.1976 16.1155 11.1923C16.0679 11.187 16.0196 11.1899 15.9733 11.2009C15.9271 11.2119 15.8837 11.2308 15.8458 11.2564C15.8079 11.2821 15.7761 11.314 15.7523 11.3504L15.2954 12.0435C15.1944 12.1962 15.2541 12.3931 15.4286 12.4815L17.961 13.7612C18.0026 13.782 18.0485 13.7955 18.096 13.8008C18.1436 13.8061 18.1919 13.8032 18.2381 13.7922C18.2844 13.7812 18.3277 13.7623 18.3657 13.7367C18.4036 13.711 18.4354 13.679 18.4592 13.6426L18.9161 12.9496C19.0171 12.7969 18.9551 12.6 18.7829 12.5116ZM15.75 4.60045C15.7738 4.63686 15.8056 4.6688 15.8435 4.69446C15.8815 4.72013 15.9248 4.739 15.971 4.75001C16.0173 4.76101 16.0656 4.76394 16.1132 4.75861C16.1607 4.75329 16.2066 4.73982 16.2482 4.71897L18.7806 3.43929C18.9551 3.35089 19.0148 3.15402 18.9138 3.00134L18.4592 2.31027C18.4354 2.27386 18.4036 2.24191 18.3657 2.21625C18.3277 2.19059 18.2844 2.17172 18.2381 2.16071C18.1919 2.1497 18.1436 2.14678 18.096 2.1521C18.0485 2.15743 18.0026 2.1709 17.961 2.19174L15.4286 3.47143C15.3447 3.5142 15.2836 3.58428 15.2587 3.66635C15.2337 3.74842 15.2469 3.8358 15.2954 3.90937L15.75 4.60045Z"
+              fill={isSpeaking ? "#996CFE" : "currentColor"}
+            />
+          </svg>
+        </SpeakerIconDiv>
+
+        <SelectVoiceDiv value={selectedVoiceIndex} onChange={handleVoiceChange}>
+          {voices.map((voice, index) => (
+            <MenuItemsVoice key={index} value={index}>
+              {voice.name}
+            </MenuItemsVoice>
+          ))}
+        </SelectVoiceDiv>
+      </QuestionCardIconDiv>
+    </QuestionCardMainDiv>
+  );
+};
+
+export default QuestionCard;

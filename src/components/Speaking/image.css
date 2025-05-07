@@ -1,0 +1,18 @@
+.describeImageCard {
+    /* width: 100%; */
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .describeImageCard div {
+    padding: 20px;
+  }
+  
+  @media (max-width: 500px) {
+    .describeImageCard div {
+      padding: 20px 0px ;
+    }
+  }
+  
