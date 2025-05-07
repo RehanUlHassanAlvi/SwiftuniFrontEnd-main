@@ -257,12 +257,15 @@ const SpeakingRTL = () => {
         audioURL: audioURL,
       };
 
+
       const payload = {
         test_question_id: testQuestionTableId,
         marks_obtained:
-          rtlScore.content_score +
+        (rtlScore.content_score +
           rtlScore.pronounciation_score +
-          rtlScore.fluency_score,
+          rtlScore.fluency_score) > 0 ? Math.round(    (rtlScore.content_score +
+            rtlScore.pronounciation_score +
+            rtlScore.fluency_score) / 3) : 0,
         user_response: JSON.stringify(userResponse),
         time_taken: elapsedTime,
         is_ptecore: false,

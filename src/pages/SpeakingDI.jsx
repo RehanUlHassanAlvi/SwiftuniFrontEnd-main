@@ -282,13 +282,15 @@ const SpeakingDI = () => {
         describeImageScore.pronunciation_score =
           describeImageScore.pronounciation_score;
       }
-
+      
       const payload = {
         test_question_id: testQuestionTableId,
         marks_obtained:
-          describeImageScore.content_score +
+        (   describeImageScore.content_score +
           describeImageScore.pronunciation_score +
-          describeImageScore.fluency_score,
+          describeImageScore.fluency_score) > 0 ? Math.round(    (   describeImageScore.content_score +
+            describeImageScore.pronunciation_score +
+            describeImageScore.fluency_score) / 3) : 0,
         user_response: JSON.stringify(userResponse),
         time_taken: elapsedTime,
         is_ptecore: false,

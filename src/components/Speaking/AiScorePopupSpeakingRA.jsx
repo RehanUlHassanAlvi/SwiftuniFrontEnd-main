@@ -546,12 +546,12 @@ const AiScorePopupSpeakingRA = ({
                     <HeaderText>{scoreCard.Heading}</HeaderText>
                   </AiScoreSmallCardHeader>
                   <ContentWrapper1>
-                    <CircularScoreProgress
-                      score={Math.round(score / 3)}
-                      totalScore={totalScore}
-                      progressColorFilled={scoreCard.progressColorFilled}
-                      scoreColor={scoreCard.scoreColor}
-                      progressColorUnfilled={scoreCard.progressColorUnfilled}
+                  <CircularScoreProgress
+                    score={score > 0 ? Math.round(score / 3) : 0}
+                    totalScore={90}
+                    progressColorFilled={scoreCard.progressColorFilled}
+                    scoreColor={scoreCard.scoreColor}
+                    progressColorUnfilled={scoreCard.progressColorUnfilled}
                     />
                     <WritingOutOfText>Out of 90</WritingOutOfText>
                   </ContentWrapper1>
@@ -770,12 +770,12 @@ const AiScorePopupSpeakingRA = ({
                     <HeaderText>{scoreCard.Heading}</HeaderText>
                   </AiScoreSmallCardHeader>
                   <ContentWrapper1>
-                    <CircularScoreProgress
-                      score={Math.round(score / 3)}
-                      totalScore={totalScore}
-                      progressColorFilled={scoreCard.progressColorFilled}
-                      scoreColor={scoreCard.scoreColor}
-                      progressColorUnfilled={scoreCard.progressColorUnfilled}
+                  <CircularScoreProgress
+                    score={score > 0 ? Math.round(score / 3) : 0}
+                    totalScore={90}
+                    progressColorFilled={scoreCard.progressColorFilled}
+                    scoreColor={scoreCard.scoreColor}
+                    progressColorUnfilled={scoreCard.progressColorUnfilled}
                     />
                     <WritingOutOfText>Out of 90</WritingOutOfText>
                   </ContentWrapper1>

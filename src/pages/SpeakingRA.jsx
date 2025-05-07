@@ -256,12 +256,16 @@ const SpeakingRA = () => {
         audioURL: audioURL,
       };
 
+        
+
       const payload = {
         test_question_id: testQuestionTableId,
         marks_obtained:
-          raScore.content_score +
+        (raScore.content_score +
           raScore.pronounciation_score +
-          raScore.fluency_score,
+          raScore.fluency_score) > 0 ? Math.round(    (raScore.content_score +
+            raScore.pronounciation_score +
+            raScore.fluency_score) / 3) : 0,
         user_response: JSON.stringify(userResponse),
         time_taken: elapsedTime,
         is_ptecore: false,

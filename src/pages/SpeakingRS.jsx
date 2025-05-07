@@ -262,9 +262,11 @@ const SpeakingRS = () => {
       const payload = {
         test_question_id: testQuestionTableId,
         marks_obtained:
-          repeatSentenceScore.content_score +
+        (repeatSentenceScore.content_score +
           repeatSentenceScore.pronunciation_score +
-          repeatSentenceScore.fluency_score,
+          repeatSentenceScore.fluency_score) > 0 ? Math.round(    (repeatSentenceScore.content_score +
+            repeatSentenceScore.pronunciation_score +
+            repeatSentenceScore.fluency_score) / 3) : 0,
         user_response: JSON.stringify(userResponse),
         time_taken: elapsedTime,
         is_ptecore: false,
