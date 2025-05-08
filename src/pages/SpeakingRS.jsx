@@ -540,7 +540,7 @@ const SpeakingRS = () => {
               renderDownloadIcon={true}
               ScoreLetter="S"
               bg="#49D7F2"
-              totalScore="13.00"
+              totalScore="90.00"
               testSubmissionInProcess={isLoading}
             />
           </FlexDiv>
