@@ -56,8 +56,7 @@ const columns = [
 const renderSuggestion = (suggestion, isList) => {
   if (!isList) return suggestion;
 
-  const lines = suggestion
-    .split("\n")
+  const lines = suggestion.split("\n")
     // .map((line, index) => <div key={index}>{line}</div>);
     // return <>{lines}</>;
     .map((line, index) => <li key={index}>{line}</li>);
