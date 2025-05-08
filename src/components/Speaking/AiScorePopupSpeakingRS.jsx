@@ -409,7 +409,7 @@ const AiScorePopupSpeakingRS = ({
   const EnableSkills = [
     {
       component: enableSkillsScore.content_score !== undefined ? "Content" : "Appropriacy",
-      score: `${enableSkillsScore.content_score ? enableSkillsScore.content_score : enableSkillsScore.appropriacy_score ?? 0}/${contentTotalScore}`,
+      score: `${enableSkillsScore.content_score ? enableSkillsScore.content_score : enableSkillsScore.appropriacy_score ?? 0}/90`,
       suggestion: enableSkillsScore.content_score ? enableSkillsScore.content_score : enableSkillsScore.appropriacy_score === 0
         ? "Content is insufficient. Try to add more relevant details to improve the score."
         : "Too few words are repeated. Try to aim for at least 50%",
@@ -529,13 +529,13 @@ const AiScorePopupSpeakingRS = ({
                   </AiScoreSmallCardHeader>
                   <ContentWrapper1>
                     <CircularScoreProgress
-                      score={Math.round(score / 3)}
-                      totalScore={totalScore}
+                      score={score > 0 ? Math.round(score / 3) : 0}
+                      totalScore={90}
                       progressColorFilled={scoreCard.progressColorFilled}
                       scoreColor={scoreCard.scoreColor}
                       progressColorUnfilled={scoreCard.progressColorUnfilled}
                     />
-                    <WritingOutOfText>Out of {totalScore}</WritingOutOfText>
+                    <WritingOutOfText>Out of 90</WritingOutOfText>
                   </ContentWrapper1>
                 </AiScoreSmallCard>
               ))}
@@ -731,13 +731,13 @@ const AiScorePopupSpeakingRS = ({
                   </AiScoreSmallCardHeader>
                   <ContentWrapper1>
                     <CircularScoreProgress
-                      score={Math.round(score / 3)}
-                      totalScore={totalScore}
+                    score={score > 0 ? Math.round(score / 3) : 0}
+                    totalScore={90}
                       progressColorFilled={scoreCard.progressColorFilled}
                       scoreColor={scoreCard.scoreColor}
                       progressColorUnfilled={scoreCard.progressColorUnfilled}
                     />
-                    <WritingOutOfText>Out of {totalScore}</WritingOutOfText>
+                    <WritingOutOfText>Out of {90}</WritingOutOfText>
                   </ContentWrapper1>
                 </AiScoreSmallCard>
               ))}

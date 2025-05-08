@@ -522,13 +522,13 @@ const AiScorePopupSpeakingRTL = ({
                   </AiScoreSmallCardHeader>
                   <ContentWrapper1>
                     <CircularScoreProgress
-                      score={Math.round(score / 3)}
-                      totalScore={totalScore}
+                      score={score > 0 ? Math.round(score / 3) : 0}
+                      totalScore={90}
                       progressColorFilled={scoreCard.progressColorFilled}
                       scoreColor={scoreCard.scoreColor}
                       progressColorUnfilled={scoreCard.progressColorUnfilled}
                     />
-                    <WritingOutOfText>Out of {totalScore}</WritingOutOfText>
+                    <WritingOutOfText>Out of 90</WritingOutOfText>
                   </ContentWrapper1>
                 </AiScoreSmallCard>
               ))}
@@ -725,12 +725,12 @@ const AiScorePopupSpeakingRTL = ({
                   <ContentWrapper1>
                     <CircularScoreProgress
                       score={Math.round(score / 3)}
-                      totalScore={totalScore}
+                      totalScore={90}
                       progressColorFilled={scoreCard.progressColorFilled}
                       scoreColor={scoreCard.scoreColor}
                       progressColorUnfilled={scoreCard.progressColorUnfilled}
                     />
-                    <WritingOutOfText>Out of {totalScore}</WritingOutOfText>
+                    <WritingOutOfText>Out of 90</WritingOutOfText>
                   </ContentWrapper1>
                 </AiScoreSmallCard>
               ))}
