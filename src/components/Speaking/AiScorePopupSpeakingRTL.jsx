@@ -378,7 +378,7 @@ const AiScorePopupSpeakingRTL = ({
   const EnableSkills = [
     {
       component: "Content",
-      score: `${enableSkillsScore.content_score ?? 0}/${contentTotalScore}`,
+      score: `${enableSkillsScore.content_score ?? 0}/90`,
       suggestion:
         enableSkillsScore.content_score === 0
           ? "Content is insufficient. Try to add more relevant details to improve the score."
@@ -724,8 +724,8 @@ const AiScorePopupSpeakingRTL = ({
                   </AiScoreSmallCardHeader>
                   <ContentWrapper1>
                     <CircularScoreProgress
-                      score={Math.round(score / 3)}
-                      totalScore={90}
+                    score={score > 0 ? Math.round(score / 3) : 0}
+                    totalScore={90}
                       progressColorFilled={scoreCard.progressColorFilled}
                       scoreColor={scoreCard.scoreColor}
                       progressColorUnfilled={scoreCard.progressColorUnfilled}

@@ -487,17 +487,29 @@ export const getOverallScore = (speakingScore, writingsScore, readingsScore, lis
     return overall > 10 ? parseInt(overall) : 10;
   };
 
-export const sendTest = (type, listeningTests, readingTests, writingTests, speakingTests) => {    
-    if (type === "listening"){
+  export const sendTest = (type, listeningTests, readingTests, writingTests, speakingTests) => {    
+    if (type === "listening") {
       return listeningTests;
-    }else if(type === "reading"){
+    } else if (type === "reading") {
       return readingTests;
-    }else if(type === "writing"){
+    } else if (type === "writing") {
       return writingTests;
-    }else{
-      return speakingTests;
+    } else {
+      // For speaking tests, divide the scores by 3
+      return speakingTests.map(test => {
+        if (test.UserResponse && test.UserResponse.Score) {
+          return {
+            ...test,
+            UserResponse: {
+              ...test.UserResponse,
+              Score: test.UserResponse.Score > 0 ? Math.round(test.UserResponse.Score / 3) : 0
+            }
+          };
+        }
+        return test;
+      });
     }
-  }
+  };
 
 export const formatDate = (isoString) => {
   const date = new Date(isoString);
