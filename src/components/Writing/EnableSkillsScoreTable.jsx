@@ -56,10 +56,13 @@ const columns = [
 const renderSuggestion = (suggestion, isList) => {
   if (!isList) return suggestion;
 
-  const lines = suggestion.split("\n")
-    // .map((line, index) => <div key={index}>{line}</div>);
-    // return <>{lines}</>;
-    .map((line, index) => <li key={index}>{line}</li>);
+  // const lines = suggestion.split("\n")
+  //   // .map((line, index) => <div key={index}>{line}</div>);
+  //   // return <>{lines}</>;
+  //   .map((line, index) => <li key={index}>{line}</li>);
+  const lines = String(suggestion).split("\n").map((line, index) => (
+    <li key={index}>{line}</li>
+  ));
   return (
     <ol style={{ margin: "0rem", padding: "0rem 0rem 0rem 1rem" }}>{lines}</ol>
   );
