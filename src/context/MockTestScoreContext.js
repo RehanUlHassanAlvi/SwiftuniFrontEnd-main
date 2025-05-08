@@ -207,7 +207,7 @@ export const MockTestScoreProvider = ({ children }) => {
                     totalMark['Read Aloud'] += 90;
                     let pronounScore  = tmp.pronunciation_score !== undefined ? tmp.pronunciation_score : tmp.pronounciation_score || 0;
                     let obtain = (tmp.content_score || 0) + (tmp.fluency_score || 0) + pronounScore;
-                    obtainMark['Read Aloud'] += obtain;
+                    obtainMark['Read Aloud'] += Math.round(obtain / 3);
                     break;
                 }
                 case 'Repeat Sentence': {
@@ -221,7 +221,7 @@ export const MockTestScoreProvider = ({ children }) => {
                     totalMark['Repeat Sentence'] += 90;
                     let pronounScore  = tmp.pronunciation_score !== undefined ? tmp.pronunciation_score : tmp.pronounciation_score || 0;
                     let obtain = (tmp.content_score || 0) + (tmp.fluency_score || 0) + pronounScore;
-                    obtainMark['Repeat Sentence'] += obtain;
+                    obtainMark['Repeat Sentence'] += Math.round(obtain / 3);
                     break;
                 }
                 case 'Describe Image': {
@@ -234,7 +234,7 @@ export const MockTestScoreProvider = ({ children }) => {
                     }
                     totalMark["Describe Image"] += 90;
                     let obtain = (tmp.content_score || 0) + (tmp.fluency_score || 0) + (tmp.pronounciation_score || 0);
-                    obtainMark["Describe Image"] += obtain;
+                    obtainMark["Describe Image"] += Math.round(obtain / 3);
                     break;
                 }
                 case 'Re-tell Lecture': {
@@ -247,7 +247,7 @@ export const MockTestScoreProvider = ({ children }) => {
                     }
                     totalMark["Re-tell Lecture"] += 90;
                     let obtain = (tmp.content_score || 0) + (tmp.fluency_score || 0) + (tmp.pronounciation_score || 0);
-                    obtainMark["Re-tell Lecture"] += obtain;
+                    obtainMark["Re-tell Lecture"] += Math.round(obtain / 3);
                     break;
                 }
                 case 'Respond to a situation': {
@@ -260,7 +260,7 @@ export const MockTestScoreProvider = ({ children }) => {
                   }
                   totalMark["Respond to a situation"] += 90;
                   let obtain = (tmp.appropriacy_score || 0) + (tmp.fluency_score || 0) + (tmp.pronunciation_score || 0);
-                  obtainMark["Respond to a situation"] += obtain;
+                  obtainMark["Respond to a situation"] += Math.round(obtain / 3);
                   break;
               }
                 case 'Answer Short Question': {
