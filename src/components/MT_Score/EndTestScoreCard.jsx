@@ -82,22 +82,34 @@ const EndTestScoreCard = ({ data, tests, type}) => {
     if (type === 'speaking') {
       if (data.UserResponse.SubCategory === "Read Aloud") {
         let res = data.UserResponse.AI_response ? JSON.parse(data.UserResponse.AI_response) : { content_score: 0, fluency_score: 0, pronounciation_score: 0 };
-        return `${(res?.content_score || 0) + (res?.fluency_score || 0) + (res?.pronounciation_score || 0)}/90`;
+        const totalScore = (res?.content_score || 0) + (res?.fluency_score || 0) + (res?.pronounciation_score || 0);
+        const adjustedScore = Math.round(totalScore / 3); // Round and divide by 3
+        return `${adjustedScore}/90`;
       } else if (data.UserResponse.SubCategory === "Repeat Sentence") {
         let res = data.UserResponse.AI_response ? JSON.parse(data.UserResponse.AI_response) : { content_score: 0, fluency_score: 0, pronunciation_score: 0 };
-        return `${(res?.content_score || 0) + (res?.fluency_score || 0) + (res?.pronunciation_score || 0)}/90`;
+        const totalScore = (res?.content_score || 0) + (res?.fluency_score || 0) + (res?.pronunciation_score || 0);
+        const adjustedScore = Math.round(totalScore / 3); // Round and divide by 3
+        return `${adjustedScore}/90`;
       } else if (data.UserResponse.SubCategory === "Describe Image") {
         let res = data.UserResponse.AI_response ? JSON.parse(data.UserResponse.AI_response) : { content_score: 0, fluency_score: 0, pronounciation_score: 0 };
-        return `${(res?.content_score || 0) + (res?.fluency_score || 0) + (res?.pronounciation_score || 0)}/90`;
+        const totalScore = (res?.content_score || 0) + (res?.fluency_score || 0) + (res?.pronounciation_score || 0);
+        const adjustedScore = Math.round(totalScore / 3); // Round and divide by 3
+        return `${adjustedScore}/90`;
       } else if (data.UserResponse.SubCategory === "Re-tell Lecture") {
         let res = data.UserResponse.AI_response ? JSON.parse(data.UserResponse.AI_response) : { content_score: 0, fluency_score: 0, pronounciation_score: 0 };
-        return `${(res?.content_score || 0) + (res?.fluency_score || 0) + (res?.pronounciation_score || 0)}/90`;
+        const totalScore = (res?.content_score || 0) + (res?.fluency_score || 0) + (res?.pronounciation_score || 0);
+        const adjustedScore = Math.round(totalScore / 3); // Round and divide by 3
+        return `${adjustedScore}/90`;
       } else if (data.UserResponse.SubCategory === "Respond to a situation") {
         let res = data.UserResponse.AI_response ? JSON.parse(data.UserResponse.AI_response) : { appropriacy_score: 0, fluency_score: 0, pronunciation_score: 0 };
-        return `${(res?.appropriacy_score || 0) + (res?.fluency_score || 0) + (res?.pronunciation_score || 0)}/90`;
+        const totalScore = (res?.appropriacy_score || 0) + (res?.fluency_score || 0) + (res?.pronunciation_score || 0);
+        const adjustedScore = Math.round(totalScore / 3); // Round and divide by 3
+        return `${adjustedScore}/90`;
       } else if (data.UserResponse.SubCategory === "Answer Short Question") {
         let res = data.UserResponse.AI_response ? JSON.parse(data.UserResponse.AI_response) : { content_score: 0, fluency_score: 0, pronunciation_score: 0 };
-        return `${(res?.content_score || 0) + (res?.fluency_score || 0) + (res?.pronunciation_score || 0)}/1`;
+        const totalScore = (res?.content_score || 0) + (res?.fluency_score || 0) + (res?.pronunciation_score || 0);
+        const adjustedScore = Math.round(totalScore / 3); // Round and divide by 3
+        return `${adjustedScore}/1`; // Keeping the original denominator for this case
       } else {
         return 0;
       }

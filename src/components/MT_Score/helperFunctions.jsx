@@ -495,6 +495,7 @@ export const getOverallScore = (speakingScore, writingsScore, readingsScore, lis
     } else if (type === "writing") {
       return writingTests;
     } else {
+      console.log("speakingTests: ", speakingTests);
       // For speaking tests, divide the scores by 3
       return speakingTests.map(test => {
         if (test.UserResponse && test.UserResponse.Score) {
@@ -502,7 +503,7 @@ export const getOverallScore = (speakingScore, writingsScore, readingsScore, lis
             ...test,
             UserResponse: {
               ...test.UserResponse,
-              Score: test.UserResponse.Score > 0 ? Math.round(test.UserResponse.Score / 3) : 0
+              score: test.UserResponse.Score / 3 // Divide the score by 3
             }
           };
         }
