@@ -204,7 +204,7 @@ export const MockTestScoreProvider = ({ children }) => {
                         console.error("Error parsing AI_response for Read Aloud:", e);
                         break;
                     }
-                    totalMark['Read Aloud'] += 15;
+                    totalMark['Read Aloud'] += 90;
                     let pronounScore  = tmp.pronunciation_score !== undefined ? tmp.pronunciation_score : tmp.pronounciation_score || 0;
                     let obtain = (tmp.content_score || 0) + (tmp.fluency_score || 0) + pronounScore;
                     obtainMark['Read Aloud'] += obtain;
@@ -218,7 +218,7 @@ export const MockTestScoreProvider = ({ children }) => {
                         console.error("Error parsing AI_response for Repeat Sentence:", e);
                         break;
                     }
-                    totalMark['Repeat Sentence'] += 13;
+                    totalMark['Repeat Sentence'] += 90;
                     let pronounScore  = tmp.pronunciation_score !== undefined ? tmp.pronunciation_score : tmp.pronounciation_score || 0;
                     let obtain = (tmp.content_score || 0) + (tmp.fluency_score || 0) + pronounScore;
                     obtainMark['Repeat Sentence'] += obtain;
@@ -232,7 +232,7 @@ export const MockTestScoreProvider = ({ children }) => {
                         console.error("Error parsing AI_response for Describe Image:", e);
                         break;
                     }
-                    totalMark["Describe Image"] += 15;
+                    totalMark["Describe Image"] += 90;
                     let obtain = (tmp.content_score || 0) + (tmp.fluency_score || 0) + (tmp.pronounciation_score || 0);
                     obtainMark["Describe Image"] += obtain;
                     break;
@@ -245,7 +245,7 @@ export const MockTestScoreProvider = ({ children }) => {
                         console.error("Error parsing AI_response for Re-tell Lecture:", e);
                         break;
                     }
-                    totalMark["Re-tell Lecture"] += 15;
+                    totalMark["Re-tell Lecture"] += 90;
                     let obtain = (tmp.content_score || 0) + (tmp.fluency_score || 0) + (tmp.pronounciation_score || 0);
                     obtainMark["Re-tell Lecture"] += obtain;
                     break;
@@ -258,7 +258,7 @@ export const MockTestScoreProvider = ({ children }) => {
                       console.error("Error parsing AI_response for Respond to a situation:", e);
                       break;
                   }
-                  totalMark["Respond to a situation"] += 15;
+                  totalMark["Respond to a situation"] += 90;
                   let obtain = (tmp.appropriacy_score || 0) + (tmp.fluency_score || 0) + (tmp.pronunciation_score || 0);
                   obtainMark["Respond to a situation"] += obtain;
                   break;
